@@ -1,0 +1,2 @@
+For WIn10 with Visual Studio compiler you should first make sure to run in a vsdev environment. 
+For example, I use "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Auxiliary\Build\vcvars64.bat" to start a64 bit build environment. Then under the z3 directory run the script "python scripts\mk_make.py -x -b buildx64", assuming you created the directory build64 or similar under the z3 directory. Use the -x flag under a 64 bit build environment, otherwise omit it if it is a 32 bit build environm

@@ -1,0 +1,37 @@
+surface area - new features added
+continue to innovae faster and increase security?
+Proving security at scale,werner vogels.
+shows picture of 50+ people
+Eric the evolution of formula
+automate compliance verification on AWS using provable security GRC301
+reduce latency of compliance audits
+Goldman Sachs, LogMaln on 
+The theory and math beind data privacy and security accessses
+How LogMaln automates governemnt and empowers developers
+Security in the cloud (customer data, platform applications, identity and access managemnt)
+Security of the cloud (running the operation)
+CBMC applied to FreeRTOS
+- resource policies (conflating and/or), number of calls per day 50M
+- continuous verfication of s2n
+
+threat models, formalization and connections to the service code and configurations
+
+- network configuration
+- resource policies
+- TLS
+- FreeRTOS
+
+
+https://aws.amazon.com/security/provable-security/
+
+
+Driving Scenario for SMT: 
+2006: Dynamic Symbolic Execution, Program Verification
+2016: Inductive Synthesis, (IT) DevOps scenarios configurations
+2026: Integrated models, Managing ops
+
+
+
+
+
+

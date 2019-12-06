@@ -251,7 +251,6 @@ namespace qe {
         stats                  m_stats;
         statistics             m_st;
         obj_hashtable<expr>    m_free_vars;
-        obj_hashtable<expr>    m_aux_vars;
         expr_ref_vector        m_answer;
         expr_safe_replace      m_answer_simplify;
         expr_ref_vector        m_trail;
@@ -556,7 +555,7 @@ namespace qe {
                 if (is_decl_of(f, a.get_family_id(), OP_DIV) && 
                     sz == 2 && (!a.is_numeral(args[1], r) || r.is_zero()) &&
                     is_ground(args[0]) && is_ground(args[1])) {                    
-                    result = m.mk_fresh_const("div", a.mk_real());
+                    result = m.mk_fresh_const("div", a.mk_real(), false);
                     m_divs.push_back(div(m, args[0], args[1], to_app(result)));
                     return BR_DONE;
                 }
@@ -653,6 +652,11 @@ namespace qe {
                                                   m.mk_eq(divs[i].name, divs[j].name)));
                     }
                 }
+                return;
+                paxioms.push_back(fml);
+                fml = mk_and(paxioms);
+                TRACE("qe", tout << paxioms << "\n";);
+                paxioms.reset();
             }
         }
 
@@ -661,7 +665,6 @@ namespace qe {
             m_st.reset();        
             s.m_solver.collect_statistics(m_st);
             m_free_vars.reset();
-            m_aux_vars.reset();
             m_answer.reset();
             m_answer_simplify.reset();
             m_trail.reset();
@@ -779,7 +782,7 @@ namespace qe {
             for (auto const& kv : s.m_t2x) {
                 nlsat::var x = kv.m_value;
                 expr * t = kv.m_key;
-                if (!is_uninterp_const(t) || !m_free_vars.contains(t) || m_aux_vars.contains(t))
+                if (!is_uninterp_const(t) || !m_free_vars.contains(t))
                     continue;
                 expr * v;
                 try {
@@ -797,7 +800,7 @@ namespace qe {
             for (auto const& kv : s.m_a2b) {
                 expr * a = kv.m_key;
                 nlsat::bool_var b = kv.m_value;
-                if (a == nullptr || !is_uninterp_const(a) || b == s.m_is_true.var() || !m_free_vars.contains(a) || m_aux_vars.contains(a))
+                if (a == nullptr || !is_uninterp_const(a) || b == s.m_is_true.var() || !m_free_vars.contains(a))
                     continue;
                 lbool val = s.m_bmodel0.get(b, l_undef);
                 if (val == l_undef)
